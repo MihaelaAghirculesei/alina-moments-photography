@@ -1,36 +1,213 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Alina Moments Photography
 
-## Getting Started
+**Professional Photography Portfolio Website**
 
-First, run the development server:
+_Fotografie mit Herz und Gefühl_ - A stunning, modern photography portfolio website built with cutting-edge web technologies.
+
+## ✨ Features
+
+### Technology Stack
+
+- **Next.js 15** with App Router and Turbopack
+- **React 19** with TypeScript for type safety
+- **Tailwind CSS 4** for modern styling
+- **Framer Motion** for smooth animations
+
+### Design & UX
+
+- ✅ **Elegant Dark Theme**: Professional black background with subtle blue accents
+- ✅ **Responsive Navigation**: Smooth mobile menu with hamburger animation
+- ✅ **Interactive Elements**: Pink gradient hover effects on menu items
+- ✅ **Optimized Performance**: Fast loading times and smooth scrolling
+- ✅ **SEO Ready**: Complete metadata and Open Graph tags
+
+### Social Media Integration
+
+- 🌸 Instagram
+- 💙 Facebook
+- 🎵 TikTok
+- 💚 WhatsApp (+49 173 8712387)
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm, yarn, or pnpm
+
+### Installation
+
+1. Clone the repository (if using Git):
+
+```bash
+git clone <your-repo-url>
+cd photographer-website
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+photographer-website/
+├── app/                    # Next.js app directory
+│   ├── layout.tsx         # Root layout with metadata
+│   ├── page.tsx           # Homepage
+│   └── globals.css        # Global styles and theme
+├── components/
+│   ├── sections/          # Page sections
+│   │   ├── Navigation.tsx # Sticky navigation with mobile menu
+│   │   ├── Hero.tsx       # Hero section with CTA
+│   │   ├── Gallery.tsx    # Portfolio gallery with filtering
+│   │   ├── Contact.tsx    # Contact form
+│   │   └── Footer.tsx     # Footer with social links
+│   └── ui/                # Reusable UI components
+├── lib/
+│   ├── config.ts          # Site configuration
+│   └── utils.ts           # Utility functions
+├── types/
+│   └── index.ts           # TypeScript type definitions
+├── public/
+│   └── images/            # Image assets
+└── package.json
+```
 
-## Learn More
+## 🎨 Customization
 
-To learn more about Next.js, take a look at the following resources:
+### Update Site Information
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edit `lib/config.ts`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```typescript
+export const siteConfig: SiteConfig = {
+  name: "Your Name",
+  description: "Your description",
+  url: "https://yoursite.com",
+  links: {
+    instagram: "https://instagram.com/yourhandle",
+    facebook: "https://facebook.com/yourpage",
+  },
+};
+```
 
-## Deploy on Vercel
+### Add Images
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Place your hero background image in `public/images/hero-bg.jpg`
+2. Create a `public/images/gallery/` folder
+3. Add your portfolio images (1.jpg, 2.jpg, etc.)
+4. Update the image data in `components/sections/Gallery.tsx`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Customize Colors
+
+Edit the CSS variables in `app/globals.css`:
+
+```css
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --accent: #8b7355; /* Your brand color */
+  --accent-light: #c4b5a0; /* Lighter variant */
+  --muted: #f5f5f5;
+  --border: #e5e5e5;
+}
+```
+
+## 📝 Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run format       # Format code with Prettier
+npm run format:check # Check formatting
+```
+
+## 🌐 Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Visit [vercel.com](https://vercel.com)
+3. Import your repository
+4. Vercel will auto-detect Next.js and deploy
+
+### Deploy to Other Platforms
+
+Build the project:
+
+```bash
+npm run build
+```
+
+The output will be in the `.next` folder. Follow your hosting provider's Next.js deployment guide.
+
+## 📦 Key Dependencies
+
+- **Next.js 15**: React framework with App Router
+- **React 19**: Latest React with Server Components
+- **TypeScript**: Type-safe development
+- **Tailwind CSS 4**: Utility-first CSS framework
+- **Framer Motion**: Animation library
+- **yet-another-react-lightbox**: Image lightbox
+- **Lucide React**: Icon library
+- **Sharp**: High-performance image processing
+
+## 🎯 Roadmap
+
+### Phase 1 - Content (In Progress)
+
+- [ ] Add portfolio gallery section
+- [ ] Create About page with bio
+- [ ] Add Services/Packages section
+- [ ] Implement contact form
+
+### Phase 2 - Features
+
+- [ ] Add testimonials section
+- [ ] Integrate booking system
+- [ ] Add blog for SEO
+- [ ] Implement image lightbox gallery
+
+### Phase 3 - Advanced
+
+- [ ] Multi-language support (DE/EN)
+- [ ] CMS integration (Sanity/Contentful)
+- [ ] Analytics setup
+- [ ] Performance optimization
+
+## 📞 Contact
+
+**Alina Moments Photography**
+
+- 📱 WhatsApp: +49 173 8712387
+- 📸 Instagram: [@alinamoments.photography](https://www.instagram.com/alinamoments.photography/)
+- 👥 Facebook: [Alina Moments Photography](https://www.facebook.com/profile.php?id=61577377904490)
+- 🎵 TikTok: [@alinamoments.photography](https://www.tiktok.com/@alinamoments.photography)
+
+## 🤝 Support
+
+For issues or questions:
+
+- Check Next.js documentation: [nextjs.org/docs](https://nextjs.org/docs)
+- Tailwind CSS docs: [tailwindcss.com](https://tailwindcss.com)
+
+## 📄 License
+
+This project is private and proprietary.
+
+---
+
+Built with ❤️ using Next.js
