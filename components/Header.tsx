@@ -246,9 +246,13 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="py-3 text-center text-lg font-light tracking-wide text-amber-100/90 transition-colors hover:text-amber-200"
+                className="group relative inline-block py-3 text-center text-lg font-light tracking-wide text-amber-100/90 transition-colors hover:text-amber-200 mx-auto"
               >
-                {item.name}
+                <span className="relative">
+                  {item.name}
+                  {/* Pink gradient underline with fade */}
+                  <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-pink-500/0 via-pink-500 to-pink-500/0 transition-all duration-300 group-hover:w-full" />
+                </span>
               </Link>
             ))}
           </div>
