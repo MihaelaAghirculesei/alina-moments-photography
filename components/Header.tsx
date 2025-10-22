@@ -196,7 +196,7 @@ export function Header() {
             </motion.div>
 
             {/* Mobile Menu Button */}
-            <div className="flex items-center justify-between md:hidden">
+            <div className="flex items-center md:hidden">
               <div className="flex gap-4">
                 <a
                   href="https://www.instagram.com/alinamoments.photography/"
@@ -231,16 +231,18 @@ export function Header() {
                   <WhatsAppIcon size={20} />
                 </a>
               </div>
-
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="burger-button text-amber-100"
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-              </button>
             </div>
           </nav>
+
+          {/* Mobile Burger Button - Fixed position */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="burger-button text-amber-100 fixed right-[10px] z-50 md:hidden"
+            style={{ top: isScrolled ? '135px' : '170px' }}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
 
           {/* Bottom Border */}
           <div className="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-rose-400/30 to-transparent" />
@@ -250,12 +252,13 @@ export function Header() {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className="mobile-menu fixed top-[200px] right-0 left-0 z-40 bg-black/95 backdrop-blur-xl md:hidden"
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 100 }}
+          className="mobile-menu fixed right-[10px] z-40 bg-black/95 backdrop-blur-xl md:hidden shadow-2xl border-2 rounded-l-lg min-w-[140px]"
+          style={{ top: isScrolled ? '180px' : '230px', borderColor: 'rgba(246, 122, 196, 0.98)' }}
         >
-          <div className="container mx-auto flex flex-col gap-2 px-4 py-6">
+          <div className="flex flex-col gap-2 px-8 py-6">
             {navItems.map((item) => (
               <Link
                 key={item.name}
