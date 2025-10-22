@@ -99,6 +99,7 @@ export function Header() {
                   width={isScrolled ? 150 : 200}
                   height={isScrolled ? 75 : 100}
                   className="transition-all duration-500"
+                  style={{ width: 'auto', height: 'auto' }}
                   priority
                 />
               </motion.div>
@@ -238,7 +239,7 @@ export function Header() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="burger-button text-amber-100 fixed right-[10px] z-50 md:hidden"
-            style={{ top: isScrolled ? '135px' : '170px' }}
+            style={{ top: isScrolled ? '200px' : '245px' }}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
