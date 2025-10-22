@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Menu, X, Instagram, Facebook } from "lucide-react";
 
-// TikTok icon component
 const TikTokIcon = ({ size = 20 }: { size?: number }) => (
   <svg
     width={size}
@@ -19,7 +18,6 @@ const TikTokIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
-// WhatsApp icon component
 const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
   <svg
     width={size}
@@ -53,6 +51,23 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isMobileMenuOpen && !target.closest('.mobile-menu') && !target.closest('.burger-button')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <>
@@ -219,7 +234,7 @@ export function Header() {
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-amber-100"
+                className="burger-button text-amber-100"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -238,7 +253,7 @@ export function Header() {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="fixed top-[200px] right-0 left-0 z-40 bg-black/95 backdrop-blur-xl md:hidden"
+          className="mobile-menu fixed top-[200px] right-0 left-0 z-40 bg-black/95 backdrop-blur-xl md:hidden"
         >
           <div className="container mx-auto flex flex-col gap-2 px-4 py-6">
             {navItems.map((item) => (
