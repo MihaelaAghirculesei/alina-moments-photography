@@ -245,7 +245,12 @@ export function Header() {
           </button>
 
           {/* Bottom Border */}
-          <div className="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-rose-400/30 to-transparent" />
+          <div
+            className="absolute bottom-[-5px] left-0 h-[1px] w-full"
+            style={{
+              background: 'linear-gradient(to right, transparent, rgba(246, 122, 196, 1), transparent)'
+            }}
+          />
         </div>
       </header>
 
