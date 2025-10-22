@@ -197,7 +197,7 @@ export function Header() {
             </motion.div>
 
             {/* Mobile Menu Button */}
-            <div className="flex items-center md:hidden">
+            <div className="flex items-center justify-between md:hidden">
               <div className="flex gap-4">
                 <a
                   href="https://www.instagram.com/alinamoments.photography/"
@@ -232,18 +232,17 @@ export function Header() {
                   <WhatsAppIcon size={20} />
                 </a>
               </div>
+
+              {/* Mobile Burger Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="burger-button text-amber-100"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
             </div>
           </nav>
-
-          {/* Mobile Burger Button - Fixed position */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="burger-button text-amber-100 fixed right-[10px] z-50 md:hidden"
-            style={{ top: isScrolled ? '200px' : '245px' }}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
 
           {/* Bottom Border */}
           <div
