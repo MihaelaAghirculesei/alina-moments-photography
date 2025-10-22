@@ -261,7 +261,7 @@ export function Header() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 100 }}
           className="mobile-menu fixed right-[10px] z-40 bg-black/95 backdrop-blur-xl md:hidden shadow-2xl border-2 rounded-l-lg min-w-[140px]"
-          style={{ top: isScrolled ? '180px' : '230px', borderColor: 'rgba(246, 122, 196, 0.98)' }}
+          style={{ top: isScrolled ? '250px' : '300px', borderColor: 'rgba(246, 122, 196, 0.98)' }}
         >
           <div className="flex flex-col gap-2 px-8 py-6">
             {navItems.map((item) => (
