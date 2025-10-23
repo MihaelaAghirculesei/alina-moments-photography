@@ -72,7 +72,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-[1440px] transition-all duration-500 ${
+        className={`fixed top-0 z-50 w-full transition-all duration-500 ${
           isScrolled ? "py-4 shadow-2xl" : "py-6"
         }`}
       >
@@ -82,7 +82,7 @@ export function Header() {
         {/* Top Border */}
         <div className="absolute top-0 h-[1px] w-full bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
 
-        <div className="relative px-4">
+        <div className="relative max-w-[1440px] mx-auto px-8 md:px-8">
           {/* Logo and Tagline Section */}
           <div className="flex flex-col items-center gap-3">
             {/* Logo */}
@@ -119,13 +119,14 @@ export function Header() {
           </div>
 
           {/* Navigation */}
-          <nav className="mt-6">
+          <nav>
             {/* Desktop Navigation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
               className="hidden items-center justify-center gap-8 md:flex"
+              style={{ paddingTop: '30px' }}
             >
               {navItems.map((item, index) => (
                 <motion.div
@@ -197,7 +198,7 @@ export function Header() {
             </motion.div>
 
             {/* Mobile Menu Button */}
-            <div className="flex items-center justify-between md:hidden">
+            <div className="flex items-center justify-between md:hidden" style={{ paddingLeft: '10px', paddingRight: '10px', paddingTop: '30px' }}>
               <div className="flex gap-4">
                 <a
                   href="https://www.instagram.com/alinamoments.photography/"
@@ -237,7 +238,6 @@ export function Header() {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="burger-button text-amber-100"
-                style={{ marginRight: '-10px' }}
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -262,7 +262,7 @@ export function Header() {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 100 }}
-          className="mobile-menu fixed right-[10px] z-40 bg-black/95 backdrop-blur-xl md:hidden shadow-2xl border-2 rounded-l-lg min-w-[140px]"
+          className="mobile-menu fixed right-[20px] z-40 bg-black/95 backdrop-blur-xl md:hidden shadow-2xl border-2 rounded-l-lg min-w-[140px]"
           style={{ top: isScrolled ? '250px' : '300px', borderColor: 'rgba(246, 122, 196, 0.98)' }}
         >
           <div className="flex flex-col gap-2 px-8 py-6">
