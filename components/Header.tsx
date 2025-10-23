@@ -42,6 +42,10 @@ const navItems = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [menuGap, setMenuGap] = useState(32);
+  const [socialGap, setSocialGap] = useState(16);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +54,30 @@ export function Header() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsClient(true);
+
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 840);
+
+      if (width >= 840 && width < 950) {
+        setMenuGap(20);
+        setSocialGap(6);
+      } else if (width >= 950 && width < 1100) {
+        setMenuGap(24);
+        setSocialGap(10);
+      } else if (width >= 1100) {
+        setMenuGap(32);
+        setSocialGap(16);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -82,7 +110,7 @@ export function Header() {
         {/* Top Border */}
         <div className="absolute top-0 h-[1px] w-full bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
 
-        <div className="relative max-w-[1440px] mx-auto px-8 md:px-8">
+        <div className="relative max-w-[1440px] mx-auto px-8">
           {/* Logo and Tagline Section */}
           <div className="flex flex-col items-center gap-3">
             {/* Logo */}
@@ -121,36 +149,43 @@ export function Header() {
           {/* Navigation */}
           <nav>
             {/* Desktop Navigation */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="hidden items-center justify-center gap-8 md:flex"
-              style={{ paddingTop: '30px' }}
-            >
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                >
-                  <Link
-                    href={item.href}
-                    className="group relative px-5 py-2 transition-all duration-300"
+            {isClient && !isMobile && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+                className="flex items-center justify-between"
+                style={{ paddingTop: '30px' }}
+              >
+              {/* Spacer for balance */}
+              <div className="flex-1" />
+
+              {/* Centered Menu Items */}
+              <div className="flex items-center justify-center" style={{ gap: `${menuGap}px` }}>
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 + index * 0.1 }}
                   >
-                    <span className="text-sm font-medium tracking-wider text-amber-100/80 uppercase transition-colors group-hover:text-amber-200">
-                      {item.name}
-                    </span>
+                    <Link
+                      href={item.href}
+                      className="group relative px-5 py-2 transition-all duration-300"
+                    >
+                      <span className="text-sm font-medium tracking-wider text-amber-100/80 uppercase transition-colors group-hover:text-amber-200">
+                        {item.name}
+                      </span>
 
-                    {/* Pink gradient underline with fade */}
-                    <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-pink-500 to-transparent transition-all duration-300 group-hover:w-full" />
-                  </Link>
-                </motion.div>
-              ))}
+                      {/* Pink gradient underline with fade */}
+                      <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-pink-500 to-transparent transition-all duration-300 group-hover:w-full" />
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
 
-              {/* Social Icons */}
-              <div className="ml-6 flex items-center gap-4 border-l border-amber-400/30 pl-6">
+              {/* Social Icons - Right Side */}
+              <div className="flex flex-1 items-center justify-end" style={{ paddingRight: '10px', gap: `${socialGap}px` }}>
                 <motion.a
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -195,10 +230,12 @@ export function Header() {
                   <WhatsAppIcon size={20} />
                 </motion.a>
               </div>
-            </motion.div>
+              </motion.div>
+            )}
 
             {/* Mobile Menu Button */}
-            <div className="flex items-center justify-between md:hidden" style={{ paddingLeft: '10px', paddingRight: '10px', paddingTop: '30px' }}>
+            {isClient && isMobile && (
+              <div className="flex items-center justify-between" style={{ paddingLeft: '10px', paddingRight: '10px', paddingTop: '30px' }}>
               <div className="flex gap-4">
                 <a
                   href="https://www.instagram.com/alinamoments.photography/"
@@ -242,7 +279,8 @@ export function Header() {
               >
                 {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
-            </div>
+              </div>
+            )}
           </nav>
 
         </div>
@@ -262,8 +300,8 @@ export function Header() {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 100 }}
-          className="mobile-menu fixed right-[20px] z-40 bg-black/95 backdrop-blur-xl md:hidden shadow-2xl border-2 rounded-l-lg min-w-[140px]"
-          style={{ top: isScrolled ? '250px' : '300px', borderColor: 'rgba(246, 122, 196, 0.98)' }}
+          className="mobile-menu fixed right-[20px] z-40 bg-black/95 backdrop-blur-xl shadow-2xl border-2 rounded-l-lg min-w-[140px]"
+          style={{ top: isScrolled ? '280px' : '330px', borderColor: 'rgba(246, 122, 196, 0.98)' }}
         >
           <div className="flex flex-col gap-2 px-8 py-6">
             {navItems.map((item) => (
