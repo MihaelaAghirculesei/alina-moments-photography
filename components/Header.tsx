@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -97,6 +97,46 @@ export function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  const desktopNavItems = useMemo(() => (
+    navItems.map((item, index) => (
+      <motion.div
+        key={item.name}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 + index * 0.1 }}
+      >
+        <Link
+          href={item.href}
+          className="group relative px-5 py-2 transition-all duration-300"
+        >
+          <span className="text-sm font-medium tracking-wider text-amber-100/80 uppercase transition-colors group-hover:text-amber-200">
+            {item.name}
+          </span>
+
+          {/* Pink gradient underline with fade */}
+          <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-pink-500 to-transparent transition-all duration-300 group-hover:w-full" />
+        </Link>
+      </motion.div>
+    ))
+  ), []);
+
+  const mobileNavItems = useMemo(() => (
+    navItems.map((item) => (
+      <Link
+        key={item.name}
+        href={item.href}
+        onClick={() => setIsMobileMenuOpen(false)}
+        className="group relative inline-block py-3 text-center text-lg font-light tracking-wide text-amber-100/90 transition-colors hover:text-amber-200 mx-auto"
+      >
+        <span className="relative">
+          {item.name}
+          {/* Pink gradient underline with fade */}
+          <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-pink-500/0 via-pink-500 to-pink-500/0 transition-all duration-300 group-hover:w-full" />
+        </span>
+      </Link>
+    ))
+  ), []);
+
   return (
     <>
       <header
@@ -162,26 +202,7 @@ export function Header() {
 
                 {/* Centered Menu Items */}
                 <div className="flex items-center justify-center" style={{ gap: `${menuGap}px` }}>
-                  {navItems.map((item, index) => (
-                    <motion.div
-                      key={item.name}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + index * 0.1 }}
-                    >
-                      <Link
-                        href={item.href}
-                        className="group relative px-5 py-2 transition-all duration-300"
-                      >
-                        <span className="text-sm font-medium tracking-wider text-amber-100/80 uppercase transition-colors group-hover:text-amber-200">
-                          {item.name}
-                        </span>
-
-                        {/* Pink gradient underline with fade */}
-                        <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-pink-500 to-transparent transition-all duration-300 group-hover:w-full" />
-                      </Link>
-                    </motion.div>
-                  ))}
+                  {desktopNavItems}
                 </div>
 
                 {/* Social Icons - Right Side */}
@@ -312,20 +333,7 @@ export function Header() {
           style={{ top: isScrolled ? '280px' : '330px', borderColor: 'rgba(246, 122, 196, 0.98)' }}
         >
           <div className="flex flex-col gap-2 px-8 py-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="group relative inline-block py-3 text-center text-lg font-light tracking-wide text-amber-100/90 transition-colors hover:text-amber-200 mx-auto"
-              >
-                <span className="relative">
-                  {item.name}
-                  {/* Pink gradient underline with fade */}
-                  <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-pink-500/0 via-pink-500 to-pink-500/0 transition-all duration-300 group-hover:w-full" />
-                </span>
-              </Link>
-            ))}
+            {mobileNavItems}
           </div>
         </motion.div>
       )}
