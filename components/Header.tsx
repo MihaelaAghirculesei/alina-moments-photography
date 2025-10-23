@@ -39,11 +39,22 @@ const navItems = [
   { name: "Kontakt", href: "#contact" },
 ];
 
+const MOBILE_BREAKPOINT = 840;
+const TABLET_BREAKPOINT = 950;
+const DESKTOP_BREAKPOINT = 1100;
+
+const MOBILE_MENU_TOP_SCROLLED = 280;
+const MOBILE_MENU_TOP_DEFAULT = 330;
+
+const GAP_MOBILE = { menu: 20, social: 6 };
+const GAP_TABLET = { menu: 24, social: 10 };
+const GAP_DESKTOP = { menu: 32, social: 16 };
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [menuGap, setMenuGap] = useState(32);
-  const [socialGap, setSocialGap] = useState(16);
+  const [menuGap, setMenuGap] = useState(GAP_DESKTOP.menu);
+  const [socialGap, setSocialGap] = useState(GAP_DESKTOP.social);
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
@@ -61,17 +72,17 @@ export function Header() {
 
     const handleResize = () => {
       const width = window.innerWidth;
-      setIsMobile(width < 840);
+      setIsMobile(width < MOBILE_BREAKPOINT);
 
-      if (width >= 840 && width < 950) {
-        setMenuGap(20);
-        setSocialGap(6);
-      } else if (width >= 950 && width < 1100) {
-        setMenuGap(24);
-        setSocialGap(10);
-      } else if (width >= 1100) {
-        setMenuGap(32);
-        setSocialGap(16);
+      if (width >= MOBILE_BREAKPOINT && width < TABLET_BREAKPOINT) {
+        setMenuGap(GAP_MOBILE.menu);
+        setSocialGap(GAP_MOBILE.social);
+      } else if (width >= TABLET_BREAKPOINT && width < DESKTOP_BREAKPOINT) {
+        setMenuGap(GAP_TABLET.menu);
+        setSocialGap(GAP_TABLET.social);
+      } else if (width >= DESKTOP_BREAKPOINT) {
+        setMenuGap(GAP_DESKTOP.menu);
+        setSocialGap(GAP_DESKTOP.social);
       }
     };
 
@@ -112,8 +123,6 @@ export function Header() {
           <span className="text-sm font-medium tracking-wider text-amber-100/80 uppercase transition-colors group-hover:text-amber-200">
             {item.name}
           </span>
-
-          {/* Pink gradient underline with fade */}
           <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-pink-500 to-transparent transition-all duration-300 group-hover:w-full" />
         </Link>
       </motion.div>
@@ -130,7 +139,6 @@ export function Header() {
       >
         <span className="relative">
           {item.name}
-          {/* Pink gradient underline with fade */}
           <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-pink-500/0 via-pink-500 to-pink-500/0 transition-all duration-300 group-hover:w-full" />
         </span>
       </Link>
@@ -144,16 +152,12 @@ export function Header() {
           isScrolled ? "py-4 shadow-2xl" : "py-6"
         }`}
       >
-        {/* Pure Black Background */}
         <div className="absolute inset-0 bg-black backdrop-blur-2xl" />
 
-        {/* Top Border */}
         <div className="absolute top-0 h-[1px] w-full bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
 
         <div className="relative max-w-[1440px] mx-auto px-8">
-          {/* Logo and Tagline Section */}
           <div className="flex flex-col items-center gap-3">
-            {/* Logo */}
             <Link href="/" className="group">
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -173,7 +177,6 @@ export function Header() {
               </motion.div>
             </Link>
 
-            {/* Tagline */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -186,8 +189,7 @@ export function Header() {
             </motion.p>
           </div>
 
-          {/* Navigation */}
-          <nav>
+          <nav aria-label="Primary navigation">
             {/* Desktop Navigation */}
             {isClient && !isMobile && (
               <motion.div
@@ -197,15 +199,12 @@ export function Header() {
                 className="flex items-center justify-between"
                 style={{ paddingTop: '30px' }}
               >
-                {/* Spacer for balance */}
                 <div className="flex-1" />
 
-                {/* Centered Menu Items */}
                 <div className="flex items-center justify-center" style={{ gap: `${menuGap}px` }}>
                   {desktopNavItems}
                 </div>
 
-                {/* Social Icons - Right Side */}
                 <div className="flex flex-1 items-center justify-end" style={{ paddingRight: '10px', gap: `${socialGap}px` }}>
                   <motion.a
                     whileHover={{ scale: 1.1 }}
@@ -258,7 +257,7 @@ export function Header() {
               </motion.div>
             )}
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu */}
             {isClient && isMobile && (
               <div className="flex items-center justify-between" style={{ paddingLeft: '10px', paddingRight: '10px', paddingTop: '30px' }}>
                 <div className="flex gap-4">
@@ -300,7 +299,6 @@ export function Header() {
                   </a>
                 </div>
 
-                {/* Mobile Burger Button */}
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="burger-button text-amber-100"
@@ -314,7 +312,6 @@ export function Header() {
 
         </div>
 
-        {/* Bottom Border */}
         <div
           className="absolute bottom-[-5px] left-0 h-[1px] w-full"
           style={{
@@ -323,14 +320,14 @@ export function Header() {
         />
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <motion.div
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 100 }}
           className="mobile-menu fixed right-[20px] z-40 bg-black/95 backdrop-blur-xl shadow-2xl border-2 rounded-l-lg min-w-[140px]"
-          style={{ top: isScrolled ? '280px' : '330px', borderColor: 'rgba(246, 122, 196, 0.98)' }}
+          style={{ top: isScrolled ? `${MOBILE_MENU_TOP_SCROLLED}px` : `${MOBILE_MENU_TOP_DEFAULT}px`, borderColor: 'rgba(246, 122, 196, 0.98)' }}
         >
           <div className="flex flex-col gap-2 px-8 py-6">
             {mobileNavItems}
