@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -37,10 +37,9 @@ interface NavItem {
 
 interface SocialIconsProps {
   variant?: 'desktop' | 'mobile';
-  gap?: string | number;
 }
 
-const SocialIcons = ({ variant = 'desktop', gap }: SocialIconsProps) => {
+const SocialIcons = ({ variant = 'desktop' }: SocialIconsProps) => {
   const isDesktop = variant === 'desktop';
   const IconWrapper = isDesktop ? motion.a : 'a';
   const iconProps = isDesktop ? { whileHover: { scale: 1.1 }, whileTap: { scale: 0.95 } } : {};
@@ -114,6 +113,9 @@ const GAP_MOBILE = { menu: 20, social: 6 };
 const GAP_TABLET = { menu: 24, social: 10 };
 const GAP_DESKTOP = { menu: 32, social: 16 };
 
+const BRAND_PINK = 'rgba(246, 122, 196, 0.98)';
+const BRAND_PINK_SOLID = 'rgb(246, 122, 196)';
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -122,53 +124,53 @@ export function Header() {
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 50);
+  }, []);
 
+  const handleResize = useCallback(() => {
+    const width = window.innerWidth;
+    setIsMobile(width < MOBILE_BREAKPOINT);
+
+    if (width >= MOBILE_BREAKPOINT && width < TABLET_BREAKPOINT) {
+      setMenuGap(GAP_MOBILE.menu);
+      setSocialGap(GAP_MOBILE.social);
+    } else if (width >= TABLET_BREAKPOINT && width < DESKTOP_BREAKPOINT) {
+      setMenuGap(GAP_TABLET.menu);
+      setSocialGap(GAP_TABLET.social);
+    } else if (width >= DESKTOP_BREAKPOINT) {
+      setMenuGap(GAP_DESKTOP.menu);
+      setSocialGap(GAP_DESKTOP.social);
+    }
+  }, []);
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (isMobileMenuOpen && !target.closest('.mobile-menu') && !target.closest('.burger-button')) {
+      setIsMobileMenuOpen(false);
+    }
+  }, [isMobileMenuOpen]);
+
+  const handleEscapeKey = useCallback((event: KeyboardEvent) => {
+    if (event.key === 'Escape' && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   useEffect(() => {
     setIsClient(true);
 
-    const handleResize = () => {
-      const width = window.innerWidth;
-      setIsMobile(width < MOBILE_BREAKPOINT);
-
-      if (width >= MOBILE_BREAKPOINT && width < TABLET_BREAKPOINT) {
-        setMenuGap(GAP_MOBILE.menu);
-        setSocialGap(GAP_MOBILE.social);
-      } else if (width >= TABLET_BREAKPOINT && width < DESKTOP_BREAKPOINT) {
-        setMenuGap(GAP_TABLET.menu);
-        setSocialGap(GAP_TABLET.social);
-      } else if (width >= DESKTOP_BREAKPOINT) {
-        setMenuGap(GAP_DESKTOP.menu);
-        setSocialGap(GAP_DESKTOP.social);
-      }
-    };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [handleResize]);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (isMobileMenuOpen && !target.closest('.mobile-menu') && !target.closest('.burger-button')) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
     if (isMobileMenuOpen) {
       document.addEventListener("click", handleClickOutside);
       document.addEventListener("keydown", handleEscapeKey);
@@ -178,7 +180,7 @@ export function Header() {
       document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("keydown", handleEscapeKey);
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, handleClickOutside, handleEscapeKey]);
 
   const desktopNavItems = useMemo(() => (
     navItems.map((item, index) => (
@@ -306,7 +308,7 @@ export function Header() {
         <div
           className="absolute bottom-[-5px] left-0 h-[1px] w-full"
           style={{
-            background: 'linear-gradient(to right, transparent, rgba(246, 122, 196, 1), transparent)'
+            background: `linear-gradient(to right, transparent, ${BRAND_PINK_SOLID}, transparent)`
           }}
         />
       </header>
@@ -320,7 +322,7 @@ export function Header() {
             exit={{ opacity: 0, x: 100 }}
             transition={{ duration: 0.3 }}
             className="mobile-menu fixed right-[20px] z-40 bg-black/95 backdrop-blur-xl shadow-2xl border-2 rounded-l-lg min-w-[140px]"
-            style={{ top: isScrolled ? `${MOBILE_MENU_TOP_SCROLLED}px` : `${MOBILE_MENU_TOP_DEFAULT}px`, borderColor: 'rgba(246, 122, 196, 0.98)' }}
+            style={{ top: isScrolled ? `${MOBILE_MENU_TOP_SCROLLED}px` : `${MOBILE_MENU_TOP_DEFAULT}px`, borderColor: BRAND_PINK }}
           >
             <div className="flex flex-col gap-2 px-8 py-6">
               {mobileNavItems}
