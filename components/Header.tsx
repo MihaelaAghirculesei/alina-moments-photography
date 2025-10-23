@@ -72,7 +72,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+        className={`fixed top-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-[1440px] transition-all duration-500 ${
           isScrolled ? "py-4 shadow-2xl" : "py-6"
         }`}
       >
@@ -82,7 +82,7 @@ export function Header() {
         {/* Top Border */}
         <div className="absolute top-0 h-[1px] w-full bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
 
-        <div className="relative container mx-auto px-4">
+        <div className="relative px-4">
           {/* Logo and Tagline Section */}
           <div className="flex flex-col items-center gap-3">
             {/* Logo */}
@@ -95,7 +95,7 @@ export function Header() {
               >
                 <Image
                   src="/images/logo.png.jpeg"
-                  alt="Galina Pfefer Photography"
+                  alt="Alina Moments Photography"
                   width={isScrolled ? 150 : 200}
                   height={isScrolled ? 75 : 100}
                   className="transition-all duration-500"
@@ -237,6 +237,7 @@ export function Header() {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="burger-button text-amber-100"
+                style={{ marginRight: '-10px' }}
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -244,14 +245,15 @@ export function Header() {
             </div>
           </nav>
 
-          {/* Bottom Border */}
-          <div
-            className="absolute bottom-[-5px] left-0 h-[1px] w-full"
-            style={{
-              background: 'linear-gradient(to right, transparent, rgba(246, 122, 196, 1), transparent)'
-            }}
-          />
         </div>
+
+        {/* Bottom Border */}
+        <div
+          className="absolute bottom-[-5px] left-0 h-[1px] w-full"
+          style={{
+            background: 'linear-gradient(to right, transparent, rgba(246, 122, 196, 1), transparent)'
+          }}
+        />
       </header>
 
       {/* Mobile Menu */}
