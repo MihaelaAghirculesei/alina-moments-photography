@@ -130,6 +130,81 @@ export function Header() {
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const timer = setTimeout(() => {
+      const menuElement = document.querySelector<HTMLElement>('.mobile-menu');
+      if (!menuElement) return;
+
+      const focusableElements = menuElement.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])'
+      );
+
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        const activeElement = document.activeElement;
+        const isInMenu = menuElement.contains(activeElement);
+
+        if (!isInMenu) return;
+
+        const focusedElement = activeElement as HTMLElement;
+        const focusedIndex = Array.from(focusableElements).indexOf(focusedElement);
+
+        if (e.key === 'Tab') {
+          e.preventDefault();
+
+          if (e.shiftKey) {
+            if (focusedIndex <= 0) {
+              lastElement?.focus();
+            } else {
+              focusableElements[focusedIndex - 1]?.focus();
+            }
+          } else {
+            if (focusedIndex >= focusableElements.length - 1) {
+              firstElement?.focus();
+            } else {
+              focusableElements[focusedIndex + 1]?.focus();
+            }
+          }
+        }
+        else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (focusedIndex >= focusableElements.length - 1) {
+            firstElement?.focus();
+          } else {
+            focusableElements[focusedIndex + 1]?.focus();
+          }
+        }
+        else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (focusedIndex <= 0) {
+            lastElement?.focus();
+          } else {
+            focusableElements[focusedIndex - 1]?.focus();
+          }
+        }
+        else if (e.key === 'Enter') {
+          e.preventDefault();
+          focusedElement?.click();
+        }
+      };
+
+      document.addEventListener('keydown', handleKeyDown);
+      firstElement?.focus();
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [isMobileMenuOpen]);
+
   const handleScroll = useCallback(() => {
     setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
   }, []);
@@ -216,6 +291,7 @@ export function Header() {
         href={item.href}
         onClick={() => setIsMobileMenuOpen(false)}
         className="group relative inline-block py-3 text-center text-lg font-light tracking-wide text-amber-100/90 transition-colors hover:text-amber-200 mx-auto"
+        tabIndex={0}
       >
         <span className="relative">
           {item.name}
@@ -329,6 +405,9 @@ export function Header() {
             transition={{ duration: 0.3 }}
             className="mobile-menu fixed right-[20px] z-40 bg-black/95 backdrop-blur-xl shadow-2xl border-2 rounded-l-lg min-w-[140px]"
             style={{ top: isScrolled ? `${MOBILE_MENU_TOP_SCROLLED}px` : `${MOBILE_MENU_TOP_DEFAULT}px`, borderColor: BRAND_PINK }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
           >
             <div className="flex flex-col gap-2 px-8 py-6">
               {mobileNavItems}
