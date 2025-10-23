@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Instagram, Facebook } from "lucide-react";
 
 const TikTokIcon = ({ size = 20 }: { size?: number }) => (
@@ -163,12 +163,20 @@ export function Header() {
       }
     };
 
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
     if (isMobileMenuOpen) {
       document.addEventListener("click", handleClickOutside);
+      document.addEventListener("keydown", handleEscapeKey);
     }
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [isMobileMenuOpen]);
 
@@ -304,19 +312,22 @@ export function Header() {
       </header>
 
       {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 100 }}
-          className="mobile-menu fixed right-[20px] z-40 bg-black/95 backdrop-blur-xl shadow-2xl border-2 rounded-l-lg min-w-[140px]"
-          style={{ top: isScrolled ? `${MOBILE_MENU_TOP_SCROLLED}px` : `${MOBILE_MENU_TOP_DEFAULT}px`, borderColor: 'rgba(246, 122, 196, 0.98)' }}
-        >
-          <div className="flex flex-col gap-2 px-8 py-6">
-            {mobileNavItems}
-          </div>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 0.3 }}
+            className="mobile-menu fixed right-[20px] z-40 bg-black/95 backdrop-blur-xl shadow-2xl border-2 rounded-l-lg min-w-[140px]"
+            style={{ top: isScrolled ? `${MOBILE_MENU_TOP_SCROLLED}px` : `${MOBILE_MENU_TOP_DEFAULT}px`, borderColor: 'rgba(246, 122, 196, 0.98)' }}
+          >
+            <div className="flex flex-col gap-2 px-8 py-6">
+              {mobileNavItems}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
