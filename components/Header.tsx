@@ -6,7 +6,11 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Instagram, Facebook } from "lucide-react";
 
-const TikTokIcon = ({ size = 20 }: { size?: number }) => (
+interface IconProps {
+  size?: number;
+}
+
+const TikTokIcon = ({ size = 20 }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -18,7 +22,7 @@ const TikTokIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
-const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
+const WhatsAppIcon = ({ size = 20 }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -116,6 +120,8 @@ const GAP_DESKTOP = { menu: 32, social: 16 };
 const BRAND_PINK = 'rgba(246, 122, 196, 0.98)';
 const BRAND_PINK_SOLID = 'rgb(246, 122, 196)';
 
+const SCROLL_THRESHOLD = 50;
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -125,7 +131,7 @@ export function Header() {
   const [isClient, setIsClient] = useState(false);
 
   const handleScroll = useCallback(() => {
-    setIsScrolled(window.scrollY > 50);
+    setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
   }, []);
 
   const handleResize = useCallback(() => {
