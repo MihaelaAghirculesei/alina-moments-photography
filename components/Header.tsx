@@ -157,128 +157,128 @@ export function Header() {
                 className="flex items-center justify-between"
                 style={{ paddingTop: '30px' }}
               >
-              {/* Spacer for balance */}
-              <div className="flex-1" />
+                {/* Spacer for balance */}
+                <div className="flex-1" />
 
-              {/* Centered Menu Items */}
-              <div className="flex items-center justify-center" style={{ gap: `${menuGap}px` }}>
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                  >
-                    <Link
-                      href={item.href}
-                      className="group relative px-5 py-2 transition-all duration-300"
+                {/* Centered Menu Items */}
+                <div className="flex items-center justify-center" style={{ gap: `${menuGap}px` }}>
+                  {navItems.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 + index * 0.1 }}
                     >
-                      <span className="text-sm font-medium tracking-wider text-amber-100/80 uppercase transition-colors group-hover:text-amber-200">
-                        {item.name}
-                      </span>
+                      <Link
+                        href={item.href}
+                        className="group relative px-5 py-2 transition-all duration-300"
+                      >
+                        <span className="text-sm font-medium tracking-wider text-amber-100/80 uppercase transition-colors group-hover:text-amber-200">
+                          {item.name}
+                        </span>
 
-                      {/* Pink gradient underline with fade */}
-                      <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-pink-500 to-transparent transition-all duration-300 group-hover:w-full" />
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+                        {/* Pink gradient underline with fade */}
+                        <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-pink-500 to-transparent transition-all duration-300 group-hover:w-full" />
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
 
-              {/* Social Icons - Right Side */}
-              <div className="flex flex-1 items-center justify-end" style={{ paddingRight: '10px', gap: `${socialGap}px` }}>
-                <motion.a
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://www.instagram.com/alinamoments.photography/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-rose-300 transition-colors hover:text-rose-200"
-                >
-                  <Instagram size={20} />
-                </motion.a>
+                {/* Social Icons - Right Side */}
+                <div className="flex flex-1 items-center justify-end" style={{ paddingRight: '10px', gap: `${socialGap}px` }}>
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://www.instagram.com/alinamoments.photography/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-rose-300 transition-colors hover:text-rose-200"
+                  >
+                    <Instagram size={20} />
+                  </motion.a>
 
-                <motion.a
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://www.facebook.com/profile.php?id=61577377904490"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-300 transition-colors hover:text-blue-200"
-                >
-                  <Facebook size={20} />
-                </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://www.facebook.com/profile.php?id=61577377904490"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-300 transition-colors hover:text-blue-200"
+                  >
+                    <Facebook size={20} />
+                  </motion.a>
 
-                <motion.a
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://www.tiktok.com/@alinamoments.photography?_t=ZN-90kwTzVBq0E&_r=1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-300 transition-colors hover:text-cyan-200"
-                >
-                  <TikTokIcon size={20} />
-                </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://www.tiktok.com/@alinamoments.photography?_t=ZN-90kwTzVBq0E&_r=1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-300 transition-colors hover:text-cyan-200"
+                  >
+                    <TikTokIcon size={20} />
+                  </motion.a>
 
-                <motion.a
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://wa.me/4917387123877"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-green-300 transition-colors hover:text-green-200"
-                >
-                  <WhatsAppIcon size={20} />
-                </motion.a>
-              </div>
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://wa.me/4917387123877"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-300 transition-colors hover:text-green-200"
+                  >
+                    <WhatsAppIcon size={20} />
+                  </motion.a>
+                </div>
               </motion.div>
             )}
 
             {/* Mobile Menu Button */}
             {isClient && isMobile && (
               <div className="flex items-center justify-between" style={{ paddingLeft: '10px', paddingRight: '10px', paddingTop: '30px' }}>
-              <div className="flex gap-4">
-                <a
-                  href="https://www.instagram.com/alinamoments.photography/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-rose-300"
-                >
-                  <Instagram size={20} />
-                </a>
-                <a
-                  href="https://www.facebook.com/profile.php?id=61577377904490"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-300"
-                >
-                  <Facebook size={20} />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@alinamoments.photography?_t=ZN-90kwTzVBq0E&_r=1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-300"
-                >
-                  <TikTokIcon size={20} />
-                </a>
-                <a
-                  href="https://wa.me/4917387123877"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-green-300"
-                >
-                  <WhatsAppIcon size={20} />
-                </a>
-              </div>
+                <div className="flex gap-4">
+                  <a
+                    href="https://www.instagram.com/alinamoments.photography/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-rose-300"
+                  >
+                    <Instagram size={20} />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61577377904490"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-300"
+                  >
+                    <Facebook size={20} />
+                  </a>
+                  <a
+                    href="https://www.tiktok.com/@alinamoments.photography?_t=ZN-90kwTzVBq0E&_r=1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-300"
+                  >
+                    <TikTokIcon size={20} />
+                  </a>
+                  <a
+                    href="https://wa.me/4917387123877"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-300"
+                  >
+                    <WhatsAppIcon size={20} />
+                  </a>
+                </div>
 
-              {/* Mobile Burger Button */}
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="burger-button text-amber-100"
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-              </button>
+                {/* Mobile Burger Button */}
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="burger-button text-amber-100"
+                  aria-label="Toggle menu"
+                >
+                  {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
               </div>
             )}
           </nav>
