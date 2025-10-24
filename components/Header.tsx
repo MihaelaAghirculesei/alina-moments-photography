@@ -196,7 +196,6 @@ export function Header() {
       };
 
       document.addEventListener('keydown', handleKeyDown);
-      firstElement?.focus();
 
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
@@ -336,7 +335,6 @@ export function Header() {
                   width={isScrolled ? 150 : 200}
                   height={isScrolled ? 75 : 100}
                   className="transition-all duration-500"
-                  style={{ width: 'auto', height: 'auto' }}
                   priority
                 />
               </motion.div>
