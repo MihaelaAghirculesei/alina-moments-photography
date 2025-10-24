@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -129,6 +129,7 @@ export function Header() {
   const [socialGap, setSocialGap] = useState(GAP_DESKTOP.social);
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const burgerButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -204,6 +205,14 @@ export function Header() {
 
     return () => clearTimeout(timer);
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen && burgerButtonRef.current && isMobile) {
+      setTimeout(() => {
+        burgerButtonRef.current?.focus();
+      }, 50);
+    }
+  }, [isMobileMenuOpen, isMobile]);
 
   const handleScroll = useCallback(() => {
     setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -375,9 +384,11 @@ export function Header() {
                 </div>
 
                 <button
+                  ref={burgerButtonRef}
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="burger-button text-amber-100"
-                  aria-label="Toggle menu"
+                  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                  aria-expanded={isMobileMenuOpen}
                 >
                   {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
