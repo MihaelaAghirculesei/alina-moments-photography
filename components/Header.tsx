@@ -110,8 +110,8 @@ const MOBILE_BREAKPOINT = 840;
 const TABLET_BREAKPOINT = 950;
 const DESKTOP_BREAKPOINT = 1100;
 
-const MOBILE_MENU_TOP_SCROLLED = 280;
-const MOBILE_MENU_TOP_DEFAULT = 330;
+const MOBILE_MENU_TOP_SCROLLED = 205;
+const MOBILE_MENU_TOP_DEFAULT = 255;
 
 const GAP_MOBILE = { menu: 20, social: 6 };
 const GAP_TABLET = { menu: 24, social: 10 };
@@ -196,6 +196,7 @@ export function Header() {
       };
 
       document.addEventListener('keydown', handleKeyDown);
+      firstElement?.focus();
 
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
@@ -387,6 +388,8 @@ export function Header() {
                   className="burger-button text-amber-100"
                   aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={isMobileMenuOpen}
+                  aria-controls="mobile-navigation-menu"
+                  aria-haspopup="true"
                 >
                   {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
@@ -408,6 +411,7 @@ export function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            id="mobile-navigation-menu"
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 100 }}
