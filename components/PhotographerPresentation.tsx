@@ -77,7 +77,8 @@ export function PhotographerPresentation() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
-      <AnimatePresence initial={false} custom={direction}>
+      <div className="relative w-full h-full max-w-[1440px] mx-auto">
+        <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
           custom={direction}
@@ -193,6 +194,7 @@ export function PhotographerPresentation() {
             aria-label={`Go to image ${index + 1}`}
           />
         ))}
+      </div>
       </div>
     </section>
   );
