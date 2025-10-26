@@ -117,10 +117,10 @@ export function PhotographerPresentation() {
               animate="center"
               exit="exit"
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="absolute bottom-32 left-0 right-0 text-center px-8"
+              className="absolute bottom-16 left-0 right-0 text-center px-8"
             >
               <motion.h2
-                className="text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-5 md:mb-6"
                 style={{
                   textShadow: "0 0 60px rgba(236, 72, 153, 0.5), 0 0 30px rgba(0,0,0,0.8)",
                   letterSpacing: "0.1em",
@@ -129,7 +129,7 @@ export function PhotographerPresentation() {
                 {photographerImages[currentIndex].title}
               </motion.h2>
               <motion.p
-                className="text-xl md:text-2xl lg:text-3xl text-amber-100 font-light italic"
+                className="text-[15px] sm:text-base md:text-lg lg:text-xl xl:text-2xl text-amber-100 font-light italic"
                 style={{
                   textShadow: "0 2px 20px rgba(0,0,0,0.8)",
                 }}
