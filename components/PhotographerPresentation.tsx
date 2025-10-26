@@ -165,11 +165,11 @@ export function PhotographerPresentation() {
               setDirection(index > currentIndex ? 1 : -1);
               setCurrentIndex(index);
             }}
-            className={`transition-all duration-300 ${
+            className={`w-3 h-3 transition-all duration-300 rounded-full ${
               index === currentIndex
-                ? "w-12 h-3 bg-pink-500"
-                : "w-3 h-3 bg-white/40 hover:bg-white/60"
-            } rounded-full`}
+                ? "bg-pink-500"
+                : "bg-white/40 hover:bg-white/60"
+            }`}
             aria-label={`Go to image ${index + 1}`}
           />
         ))}
