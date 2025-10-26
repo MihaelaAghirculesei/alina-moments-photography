@@ -77,7 +77,7 @@ export function PhotographerPresentation() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
-      <div className="relative w-full h-full max-w-[1440px] mx-auto">
+      <div className="relative w-full h-full max-w-[1440px] mx-auto overflow-hidden">
         <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -95,39 +95,18 @@ export function PhotographerPresentation() {
           className="absolute inset-0"
         >
           <div className="relative w-full h-full bg-black">
-            <div className="absolute inset-0">
-              <Image
-                src={photographerImages[currentIndex].src}
-                alt=""
-                fill
-                className="object-cover opacity-20 blur-2xl"
-                aria-hidden="true"
-                unoptimized
-              />
-            </div>
-
-            <motion.div
-              animate={{
-                scale: [1, 1.05, 1],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="relative w-full h-full flex items-center justify-center p-8 md:p-12 lg:p-16"
-            >
-              <div className="relative w-full h-full max-w-[90vw] max-h-[85vh]">
+            <div className="relative w-full h-full flex items-center justify-center p-4 md:p-6 lg:p-8">
+              <div className="relative w-full h-full max-w-[95vw] max-h-[95vh]">
                 <Image
                   src={photographerImages[currentIndex].src}
                   alt={photographerImages[currentIndex].title}
                   fill
                   className="object-contain drop-shadow-2xl"
                   priority
-                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 85vw, 80vw"
+                  sizes="(max-width: 768px) 95vw, (max-width: 1200px) 90vw, 85vw"
                 />
               </div>
-            </motion.div>
+            </div>
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50 pointer-events-none" />
