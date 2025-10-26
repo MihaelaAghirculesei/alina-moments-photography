@@ -92,10 +92,10 @@ export function PhotographerPresentation() {
             scale: { duration: 0.5 },
             rotateY: { duration: 0.8 },
           }}
-          className="absolute inset-0"
+          className="absolute top-[350px] left-0 right-0 bottom-0"
         >
           <div className="relative w-full h-full bg-black">
-            <div className="relative w-full h-full flex items-center justify-center p-4 md:p-6 lg:p-8">
+            <div className="relative w-full h-full flex items-start justify-center py-4 px-4 md:px-6 lg:px-8">
               <div className="relative w-full h-full max-w-[95vw] max-h-[95vh]">
                 <Image
                   src={photographerImages[currentIndex].src}
