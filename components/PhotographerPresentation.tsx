@@ -141,38 +141,40 @@ export function PhotographerPresentation() {
         </motion.div>
       </AnimatePresence>
 
-      <button
-        onClick={() => paginate(-1)}
-        className="absolute left-8 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 group border border-white/20"
-        aria-label="Previous image"
-      >
-        <ChevronLeft className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
-      </button>
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-6">
+        <button
+          onClick={() => paginate(-1)}
+          className="p-2 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 group border border-white/20"
+          aria-label="Previous image"
+        >
+          <ChevronLeft className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+        </button>
 
-      <button
-        onClick={() => paginate(1)}
-        className="absolute right-8 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 group border border-white/20"
-        aria-label="Next image"
-      >
-        <ChevronRight className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
-      </button>
+        <div className="flex gap-3">
+          {photographerImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setDirection(index > currentIndex ? 1 : -1);
+                setCurrentIndex(index);
+              }}
+              className={`w-3 h-3 transition-all duration-300 rounded-full ${
+                index === currentIndex
+                  ? "bg-pink-500"
+                  : "bg-white/40 hover:bg-white/60"
+              }`}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          ))}
+        </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-3">
-        {photographerImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              setDirection(index > currentIndex ? 1 : -1);
-              setCurrentIndex(index);
-            }}
-            className={`w-3 h-3 transition-all duration-300 rounded-full ${
-              index === currentIndex
-                ? "bg-pink-500"
-                : "bg-white/40 hover:bg-white/60"
-            }`}
-            aria-label={`Go to image ${index + 1}`}
-          />
-        ))}
+        <button
+          onClick={() => paginate(1)}
+          className="p-2 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 group border border-white/20"
+          aria-label="Next image"
+        >
+          <ChevronRight className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+        </button>
       </div>
       </div>
     </section>
