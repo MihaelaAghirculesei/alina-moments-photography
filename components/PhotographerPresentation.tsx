@@ -97,10 +97,11 @@ export function PhotographerPresentation() {
             <div className="absolute inset-0">
               <Image
                 src={photographerImages[currentIndex].src}
-                alt={photographerImages[currentIndex].title}
+                alt=""
                 fill
                 className="object-cover opacity-20 blur-2xl"
-                sizes="100vw"
+                aria-hidden="true"
+                unoptimized
               />
             </div>
 
@@ -122,7 +123,7 @@ export function PhotographerPresentation() {
                   fill
                   className="object-contain drop-shadow-2xl"
                   priority
-                  sizes="90vw"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 85vw, 80vw"
                 />
               </div>
             </motion.div>
