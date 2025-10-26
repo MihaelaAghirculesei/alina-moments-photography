@@ -230,7 +230,7 @@ export function Header() {
                 whileHover={{ scale: 1.05 }}
               >
                 <Image
-                  src="/images/logo.png.jpeg"
+                  src="/images/logo.png"
                   alt="Alina Moments Photography"
                   width={isScrolled ? 150 : 200}
                   height={isScrolled ? 75 : 100}
