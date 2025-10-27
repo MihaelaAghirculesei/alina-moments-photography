@@ -67,20 +67,21 @@ photographer-website/
 │   ├── page.tsx           # Homepage
 │   └── globals.css        # Global styles and theme
 ├── components/
-│   ├── sections/          # Page sections
-│   │   ├── Navigation.tsx # Sticky navigation with mobile menu
-│   │   ├── Hero.tsx       # Hero section with CTA
-│   │   ├── Gallery.tsx    # Portfolio gallery with filtering
-│   │   ├── Contact.tsx    # Contact form
-│   │   └── Footer.tsx     # Footer with social links
-│   └── ui/                # Reusable UI components
+│   ├── PhotographerPresentation.tsx  # Photo slider component
+│   ├── Header/            # Header components
+│   └── Footer.tsx         # Footer component
+├── data/
+│   └── slider.json        # Slider images configuration
 ├── lib/
 │   ├── config.ts          # Site configuration
 │   └── utils.ts           # Utility functions
-├── types/
-│   └── index.ts           # TypeScript type definitions
 ├── public/
-│   └── images/            # Image assets
+│   └── images/
+│       ├── logo.png       # Site logo
+│       └── portfolio/     # Portfolio images organized by category
+│           ├── Baby 6-12/ # Baby photos (6-12 months)
+│           ├── portraits/ # Portrait photography
+│           └── outdoor/   # Outdoor photography
 └── package.json
 ```
 
@@ -102,12 +103,31 @@ export const siteConfig: SiteConfig = {
 };
 ```
 
-### Add Images
+### Add Images to Slider
 
-1. Place your hero background image in `public/images/hero-bg.jpg`
-2. Create a `public/images/gallery/` folder
-3. Add your portfolio images (1.jpg, 2.jpg, etc.)
-4. Update the image data in `components/sections/Gallery.tsx`
+The homepage slider uses a JSON-based configuration system for easy content management:
+
+1. **Add your image** to the appropriate portfolio category:
+   ```
+   public/images/portfolio/
+   ├── Baby 6-12/       # Baby and children photos (6-12 months)
+   ├── portraits/       # Portrait photography
+   └── outdoor/         # Outdoor photography
+   ```
+
+2. **Update the slider configuration** in `data/slider.json`:
+   ```json
+   {
+     "src": "/images/portfolio/portraits/photo-name.jpg",
+     "title": "Your Title",
+     "subtitle": "Your Subtitle"
+   }
+   ```
+
+**Tips:**
+- Use descriptive filenames (e.g., `baby-smiling.jpg`, `family-park.jpg`)
+- Recommended image size: 1920x1080px or higher
+- Optimize images before uploading (max 2MB recommended)
 
 ### Customize Colors
 
