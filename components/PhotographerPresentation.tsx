@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -9,15 +9,33 @@ import photographerImages from "@/data/slider.json";
 export function PhotographerPresentation() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
+  const startTimer = useCallback(() => {
+    // Clear existing timer
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    // Start new timer
+    timerRef.current = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % photographerImages.length);
     }, 5000);
-
-    return () => clearInterval(timer);
   }, []);
+
+  const resetTimer = useCallback(() => {
+    startTimer();
+  }, [startTimer]);
+
+  useEffect(() => {
+    startTimer();
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [startTimer]);
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -57,7 +75,7 @@ export function PhotographerPresentation() {
     },
   };
 
-  const paginate = (newDirection: number) => {
+  const paginate = useCallback((newDirection: number) => {
     setDirection(newDirection);
     setCurrentIndex((prev) => {
       const next = prev + newDirection;
@@ -65,7 +83,8 @@ export function PhotographerPresentation() {
       if (next < 0) return photographerImages.length - 1;
       return next;
     });
-  };
+    resetTimer();
+  }, [resetTimer]);
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
@@ -149,6 +168,7 @@ export function PhotographerPresentation() {
               onClick={() => {
                 setDirection(index > currentIndex ? 1 : -1);
                 setCurrentIndex(index);
+                resetTimer();
               }}
               className={`w-3 h-3 transition-all duration-300 rounded-full ${
                 index === currentIndex
