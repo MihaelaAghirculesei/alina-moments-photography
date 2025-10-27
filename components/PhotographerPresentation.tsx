@@ -12,12 +12,10 @@ export function PhotographerPresentation() {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const startTimer = useCallback(() => {
-    // Clear existing timer
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
 
-    // Start new timer
     timerRef.current = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % photographerImages.length);
@@ -113,7 +111,7 @@ export function PhotographerPresentation() {
                   alt={photographerImages[currentIndex].title}
                   fill
                   className="object-contain drop-shadow-2xl"
-                  priority
+                  priority={currentIndex === 0}
                   sizes="(max-width: 768px) 95vw, (max-width: 1200px) 90vw, 85vw"
                 />
               </div>
