@@ -34,7 +34,7 @@ export function PhotographerPresentation() {
       }
     };
   }, [startTimer]);
-
+  
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
@@ -83,6 +83,19 @@ export function PhotographerPresentation() {
     });
     resetTimer();
   }, [resetTimer]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        paginate(-1);
+      } else if (e.key === "ArrowRight") {
+        paginate(1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [paginate]);
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
