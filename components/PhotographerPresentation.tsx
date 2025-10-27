@@ -4,15 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const photographerImages = [
-  { src: "/images/photographer/photo-1.jpg", title: "Kunst", subtitle: "Wo Kreativität auf Vision trifft" },
-  { src: "/images/photographer/photo-2.jpg", title: "Herbstträume", subtitle: "Warme Farben, echte Emotionen" },
-  { src: "/images/photographer/photo-3.jpg", title: "Kleiner Koch", subtitle: "Das Rezept für Glück: Liebe und Lachen" },
-  { src: "/images/photographer/photo-4.jpg", title: "Liebe", subtitle: "Kostbare Erinnerungen bewahren" },
-  { src: "/images/photographer/photo-5.jpg", title: "Augenblick", subtitle: "Deine Geschichte in einem Bild" },
-  { src: "/images/photographer/photo-6.jpg", title: "Gemeinsam", subtitle: "Hand in Hand durch die Natur" }, 
-];
+import photographerImages from "@/data/slider.json";
 
 export function PhotographerPresentation() {
   const [currentIndex, setCurrentIndex] = useState(0);

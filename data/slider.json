@@ -1,0 +1,42 @@
+[
+  {
+    "src": "/images/portfolio/Baby 6-12/kunst.jpg",
+    "title": "Kunst",
+    "subtitle": "Wo Kreativität auf Vision trifft"
+  },
+  {
+    "src": "/images/portfolio/portraits/herbsttraume.jpg",
+    "title": "Herbstträume",
+    "subtitle": "Warme Farben, echte Emotionen"
+  },
+  {
+    "src": "/images/portfolio/Baby 6-12/kleiner-koch.jpg",
+    "title": "Kleiner Koch",
+    "subtitle": "Das Rezept für Glück: Liebe und Lachen"
+  },
+  {
+    "src": "/images/portfolio/outdoor/liebe.jpg",
+    "title": "Liebe",
+    "subtitle": "Kostbare Erinnerungen bewahren"
+  },
+  {
+    "src": "/images/portfolio/portraits/augenblick.jpg",
+    "title": "Augenblick",
+    "subtitle": "Deine Geschichte in einem Bild"
+  },
+  {
+    "src": "/images/portfolio/outdoor/gemeinsam.jpg",
+    "title": "Gemeinsam",
+    "subtitle": "Hand in Hand durch die Natur"
+  },
+  {
+    "src": "/images/portfolio/Baby 6-12/neugier.jpg",
+    "title": "Neugier",
+    "subtitle": "Entdecke die Welt mit Kinderaugen"
+  },
+  {
+    "src": "/images/portfolio/Baby 6-12/baby-schlaft.jpg",
+    "title": "Unschuld",
+    "subtitle": "Die schönsten Momente der Kindheit"
+  }
+]
